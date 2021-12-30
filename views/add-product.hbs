@@ -1,0 +1,27 @@
+<div class="container">
+    <h3>Product add page </h3>
+    <form action="/admin/add" method="POST" class="" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="exampleUserName">Product Name</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter Product name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="exampleUserName">Image Url</label>
+            <input type="url" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter Url of image" name="image">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Description</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Description"
+                name="description">
+        </div>
+
+        <div class="form-group">
+            <label for="formFileDisabled" class="form-label">Disabled file input example</label>
+            <input class="form-control" name="Image" type="file" id="custome file"  />
+        </div>
+        <button class="btn btn-success" type="submit">Add Product</button>
+    </form>
+</div>
