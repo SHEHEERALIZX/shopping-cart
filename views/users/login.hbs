@@ -1,0 +1,28 @@
+<div class="container">
+    <h3>Login Page </h3>
+    <form action="login" method="POST" class="">
+
+        {{#if error}}
+        <p style="color: red;">Invalid Email or Password</p>
+        {{/if}}
+        <div class="form-group">
+            <label for="exampleUserName">Email</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter Email" name="email" required >
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                name="password" required >
+        </div>
+
+        <div class="form-group">
+            <a class="" href="/signup">
+                No account yet ? Create account
+            </a>
+
+        </div>
+        <button class="btn btn-success" type="submit">Login</button>
+    </form>
+</div>

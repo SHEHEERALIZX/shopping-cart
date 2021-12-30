@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+var session = require('express-session')
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -26,6 +27,12 @@ app.engine('hbs',hbs({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(session({
+  secret:"hello_world",
+  resave: true,
+  saveUninitialized: true,
+  cookie:{maxAge:6000000}
+}))
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload());
