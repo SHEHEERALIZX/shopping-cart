@@ -3,6 +3,18 @@ var router = express.Router();
 var bcrypt = require('bcrypt')
 const Product = require('../models/product')
 const User = require('../models/users')
+const Cart = require('../models/cart');
+
+
+// const verifyLogin=(req,res,next)=>{
+//   if(req.session.loggedIn){
+//     next()
+//   }else{
+//     res.redirect('/login')
+
+//   }
+// }
+
 
 
 
@@ -14,7 +26,6 @@ router.get('/', async function (req, res, next) {
     if (user) {
       let username = user.username
       let items = await Product.find().lean()
-      console.log(user);
       if (items) {
         res.render('index', { items, username });
 
@@ -22,7 +33,6 @@ router.get('/', async function (req, res, next) {
     }
     else {
       let items = await Product.find().lean()
-      console.log(user);
       if (items) {
         res.render('index', { items });
 
@@ -54,7 +64,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const { email, password } = req.body;
-    console.log(req.body)
+
 
     // validate user input 
     if (!(email && password)) {
@@ -68,15 +78,15 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({
       email
     })
-    console.log(user)
+
 
     if (user) {
 
       if (email && (await bcrypt.compare(password, user.password))) {
         req.session.user = user
-        console.log(req.session.user)
-        req.session.logginErr = true
-        res.redirect('/login')
+
+        req.session.loggedIn=true
+        res.redirect('/')
       } else {
 
         req.session.logginErr = true
@@ -167,6 +177,65 @@ router.get('/logout', (req, res) => {
   res.redirect('/login')
 })
 
+// add to cart route  
+
+
+router.get('/add-to-cart/:uuid', async (req, res) => {
+  console.log(req.session.loggedIn)
+
+  if (req.session.loggedIn) {
+
+    let userId = req.session.user._id
+
+    let prodId = req.params.uuid
+
+
+
+    let userCart = await Cart.findOne({ user: userId })
+    console.log(userCart);
+
+    if (userCart) {
+      userCart.products.push(prodId)
+      userCart.clicks++
+      userCart.save();
+     
+
+    } else {
+      let cartObj = {
+        user: userId,
+        products: [prodId]
+      }
+
+      let c = await Cart.create(cartObj)
+
+
+    }
+    res.redirect('/')
+  }
+  else{
+    res.redirect('/login')
+  }
+
+
+}
+)
+
+// get cart collection route 
+
+router.get('/cart',async (req,res)=>{
+   
+
+  let cart = await Cart.findOne({user:req.session.user._id})
+
+  console.log(cart.products[0])
+  
+  let products = await Product.find({_id:cart.products[1]}).lean()
+  
+  console.log(products)
+  res.end('Successfull')
+      
+
+})
 
 
 module.exports = router;
