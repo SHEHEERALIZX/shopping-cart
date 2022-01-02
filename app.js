@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 var session = require('express-session')
+const passport = require('passport')
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -33,6 +34,8 @@ app.use(session({
   saveUninitialized: true,
   cookie:{maxAge:6000000}
 }))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(cookieParser());
 
 process.env.PWD = process.cwd();
