@@ -1,9 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt')
+const passport = require('passport');
 const Product = require('../models/product')
 const User = require('../models/users')
 const Cart = require('../models/cart');
+require('../oauthConfig')
+
+// const verifyLogin = (req,res,next)=>{
+//   console.log(req.user);
+//   // req.user ? next() : res.send(401)
+//   if(req.user || req.session.user){
+//     next()
+//   }
+//   else{
+//     res.send(401)
+//   }
+// }
+
 
 
 // const verifyLogin=(req,res,next)=>{
@@ -20,6 +34,10 @@ const Cart = require('../models/cart');
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
+  if(req.user){
+    console.log("Google loggin "+ req.user.displayName);
+
+  }
 
   if (req.session) {
     let user = req.session.user
@@ -174,8 +192,28 @@ router.post('/signup', async (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.session.destroy()
-  res.redirect('/login')
+  // req.logout()
+
+  res.redirect('/')
 })
+
+// auth using google get route 
+
+
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] })
+);
+
+// after login attempt failure and success Redirect
+
+router.get('/google/callback',
+  passport.authenticate('google',{
+    successRedirect:'/',
+    failureRedirect:'/login'
+  })
+);
+
 
 // add to cart route  
 

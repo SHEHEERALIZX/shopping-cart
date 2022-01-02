@@ -1,4 +1,6 @@
-<div class="container">
+<div class="container-fluid align-items-center">
+    
+<div class="container align-items-center " >
     <h3>Login Page </h3>
     <form action="login" method="POST" class="">
 
@@ -8,13 +10,13 @@
         <div class="form-group">
             <label for="exampleUserName">Email</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter Email" name="email" required >
+                placeholder="Enter Email" name="email" required>
         </div>
 
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                name="password" required >
+                name="password" required>
         </div>
 
         <div class="form-group">
@@ -23,6 +25,36 @@
             </a>
 
         </div>
-        <button class="btn btn-success" type="submit">Login</button>
+
+        <div class="form-group">
+            <button class="btn btn-success" type="submit">Login</button>
+
+        </div>
+
+
+
+        <div class="form-group text-center ">
+            <h6>OR</h6>
+
+        </div>
+
+
+
+
+
+        <div class="form-group text-center mt-4">
+            <a class="btn btn-outline-dark" href="/auth/google" role="button" style="text-transform:none">
+                <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                Login with Google
+            </a>
+
+        </div>
+
+
+
+
+
     </form>
+</div>
 </div>
