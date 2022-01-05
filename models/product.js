@@ -18,6 +18,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         default:null
 
+    },
+    imgUrl:{
+        type:String,
+        default:null
     }
 })
 

@@ -7,6 +7,7 @@ const User = require('../models/users')
 const Cart = require('../models/cart');
 require('../oauthConfig')
 
+
 // const verifyLogin = (req,res,next)=>{
 //   console.log(req.user);
 //   // req.user ? next() : res.send(401)
@@ -34,7 +35,8 @@ router.get('/',async (req,res)=>{
       } 
 
       else if (req.session.user) {
-        const username = req.session.user
+        const username = req.session.user.username
+        // console.log(username);
         res.render('index', { items , username});
 
       }
@@ -180,9 +182,8 @@ router.post('/signup', async (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
+  req.user=null
   req.session.destroy()
-  req.logout()
-
   res.redirect('/')
 })
 
